@@ -20,7 +20,7 @@ module.exports = {
   },
 
   async registerUser(call, callback) {
-    const { email, username, password } = call.request;
+    const { email, username, password } = call.request.user;
 
     const user = await User.create({ email, username, password });
 

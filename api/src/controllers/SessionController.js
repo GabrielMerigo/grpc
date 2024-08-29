@@ -1,5 +1,18 @@
+const UsersService = require("../services/users");
+const { promisify } = require("util");
+
 class SessionController {
-  async store(req, res) {}
+  async store(req) {
+    const { email, password } = req.body;
+
+    UsersService.loginUser({ user: { email, password } }, (err, response) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(response);
+      }
+    });
+  }
 }
 
-export default new SessionController();
+module.exports = new SessionController();

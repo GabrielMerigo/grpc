@@ -1,25 +1,26 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   id: Number,
   email: String,
   username: String,
-  passwordHash: String,
+  password: String,
 });
-
-UserSchema.pre("save", async (next) => {
+userSchema.pre("save", async function () {
   if (!this.isModified("password")) next();
 
   this.password = await bcrypt.hash(this.password, 8);
 });
 
-UserSchema.methods = {
+userSchema.methods = {
   compareHash(hash) {
     return bcrypt.compare(hash, this.password);
   },
 };
 
-UserSchema.statics = {
+userSchema.statics = {
   generateToken({ id }) {
     return jwt.sign({ id }, autoConfig.secret, {
       expiresIn: 86400,
@@ -27,4 +28,4 @@ UserSchema.statics = {
   },
 };
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", userSchema);

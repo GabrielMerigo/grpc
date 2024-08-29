@@ -4,7 +4,7 @@ message User {
   int32 id = 1;
   string email = 2;
   string username = 3;
-  string passwordHash = 4;
+  string password = 4;
 }
 
 message GetByUserByIdParams {
@@ -13,10 +13,6 @@ message GetByUserByIdParams {
 
 message UserResponse {
   User user = 1;
-}
-
-message UsersResponse {
-  repeated User user = 1;
 }
 
 message Empty {}
@@ -35,7 +31,6 @@ message LoginUserRequest {
 
 service UserService {
   rpc getUserById(GetByUserByIdParams) returns (UserResponse);
-  rpc registerUser(RegisterUserParams) returns (UsersResponse);
-  rpc getAllUsers(Empty) returns (UsersResponse);
-  rpc loginUser(LoginUserRequest) returns (UsersResponse);
+  rpc registerUser(RegisterUserParams) returns (UserResponse);
+  rpc loginUser(LoginUserRequest) returns (UserResponse);
 }
