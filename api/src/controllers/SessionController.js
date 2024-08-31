@@ -1,5 +1,4 @@
 const UsersService = require("../services/users");
-const { promisify } = require("util");
 
 class SessionController {
   async store(req) {

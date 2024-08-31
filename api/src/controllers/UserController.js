@@ -10,20 +10,20 @@ class UserController {
   async store(req, res) {
     const { email, username, password } = req.body;
 
-    console.log(req.body);
-
-    UsersService.registerUser(
-      { user: { email, username, password } },
-      function (err, response) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(response);
+    const response = new Promise((resolve, reject) => {
+      UsersService.registerUser(
+        { user: { email, username, password } },
+        function (err, response) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(response);
+          }
         }
-      }
-    );
+      );
+    });
 
-    return res.send("Olha o console");
+    return res.json(response);
   }
 }
 
