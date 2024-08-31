@@ -1,7 +1,7 @@
 const UsersService = require("../services/users");
 
 class SessionController {
-  async store(req) {
+  async store(req, res) {
     const { email, password } = req.body;
 
     UsersService.loginUser({ user: { email, password } }, (err, response) => {
@@ -11,6 +11,8 @@ class SessionController {
         console.log(response);
       }
     });
+
+    return res.send("Olha no console");
   }
 }
 

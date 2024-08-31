@@ -6,17 +6,13 @@ module.exports = {
 
     const user = await User.findById(id);
 
-    if (user) {
+    if (!user) {
       return callback({ error: "User not found" });
     }
 
-    return callback(null, user);
-  },
-
-  async getAllUsers(call, callback) {
-    const users = await User.find({});
-
-    callback(null, { users });
+    callback(null, {
+      user: { ...user.toObject(), id: user._id, password: "" },
+    });
   },
 
   async registerUser(call, callback) {
@@ -24,7 +20,7 @@ module.exports = {
 
     const user = await User.create({ email, username, password });
 
-    callback(null, { user });
+    callback(null, { user: { ...user.toObject(), id: user._id } });
   },
 
   async loginUser(call, callback) {
@@ -43,5 +39,11 @@ module.exports = {
     return callback(null, {
       token: User.generateToken(user),
     });
+  },
+
+  async getAllUsers(call, callback) {
+    const users = await User.find({});
+
+    callback(null, { users });
   },
 };
