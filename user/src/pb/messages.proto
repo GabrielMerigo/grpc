@@ -7,21 +7,11 @@ message User {
   string password = 4;
 }
 
-message GetByUserByIdParams {
+message GetUserByIdRequest {
   string id = 1;
 }
 
-message UserResponse {
-  User user = 1;
-}
-
-message Empty {}
-
-message RegisterUserParams {
-  User user = 1;
-}
-
-message LoginResponse {
+message RegisterUserRequest {
   User user = 1;
 }
 
@@ -29,8 +19,22 @@ message LoginUserRequest {
   User user = 1;
 }
 
+message LoginResponse {
+  string token = 1;
+}
+
+message UserResponse {
+  User user = 1;
+  string error = 2;
+}
+
+message AuthenticationRequest {
+  string token = 1;
+}
+
 service UserService {
-  rpc getUserById(GetByUserByIdParams) returns (UserResponse);
-  rpc registerUser(RegisterUserParams) returns (UserResponse);
+  rpc getUserById(GetUserByIdRequest) returns (UserResponse);
+  rpc registerUser(RegisterUserRequest) returns (UserResponse);
   rpc loginUser(LoginUserRequest) returns (LoginResponse);
+  rpc authenticate(AuthenticationRequest) returns (UserResponse);
 }

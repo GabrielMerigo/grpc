@@ -22,7 +22,7 @@ userSchema.methods = {
 
 userSchema.statics = {
   generateToken({ id }) {
-    return jwt.sign({ id }, autoConfig.secret, {
+    return jwt.sign({ id }, "MeriG0D", {
       expiresIn: 86400,
     });
   },

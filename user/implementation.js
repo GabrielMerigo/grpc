@@ -29,11 +29,11 @@ module.exports = {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return callback({ error: "User not found" });
+      return callback({ err: "User not found" });
     }
 
     if (!(await user.compareHash(password))) {
-      return callback({ error: "Invalid Password" });
+      return callback({ err: "Invalid Password" });
     }
 
     return callback(null, {
