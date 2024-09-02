@@ -15,6 +15,11 @@ message RegisterUserRequest {
   User user = 1;
 }
 
+message UserResponse {
+  User user = 1;
+  string error = 2;
+}
+
 message LoginUserRequest {
   User user = 1;
 }
@@ -23,18 +28,8 @@ message LoginResponse {
   string token = 1;
 }
 
-message UserResponse {
-  User user = 1;
-  string error = 2;
-}
-
-message AuthenticationRequest {
-  string token = 1;
-}
-
 service UserService {
   rpc getUserById(GetUserByIdRequest) returns (UserResponse);
   rpc registerUser(RegisterUserRequest) returns (UserResponse);
-  rpc loginUser(LoginUserRequest) returns (LoginResponse);
-  rpc authenticate(AuthenticationRequest) returns (UserResponse);
+  rpc authenticate(LoginUserRequest) returns (LoginResponse);
 }

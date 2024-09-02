@@ -4,14 +4,14 @@ const protoLoader = require("@grpc/proto-loader");
 const path = require("path");
 
 const usersDef = protoLoader.loadSync(
-  path.resolve(__dirname, "..", "pb", "users.proto"),
+  path.resolve(__dirname, "..", "pb", "purchases.proto"),
   loaderConfig
 );
 
-const usersService = grpc.loadPackageDefinition(usersDef);
+const purchaseService = grpc.loadPackageDefinition(usersDef);
 
-const usersClient = new usersService.UserService(
-  "localhost:3334",
+const usersClient = new purchaseService.PurchaseService(
+  "localhost:3335",
   grpc.credentials.createInsecure()
 );
 

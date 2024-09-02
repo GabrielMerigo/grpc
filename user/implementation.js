@@ -24,7 +24,7 @@ module.exports = {
   },
 
   async loginUser(call, callback) {
-    const { email, password } = call.request;
+    const { email, password } = call.request.user;
 
     const user = await User.findOne({ email });
 

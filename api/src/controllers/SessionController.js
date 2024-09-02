@@ -2,12 +2,10 @@ const UsersService = require("../services/users");
 
 class SessionController {
   async store(req, res) {
-    const { email, password } = req.body;
-
-    console.log(email, password);
+    const { email, username, password } = req.body;
 
     const response = await new Promise((resolve, reject) => {
-      UsersService.loginUser(
+      UsersService.authenticate(
         { user: { email, password } },
         function (err, response) {
           if (err) {
@@ -19,9 +17,7 @@ class SessionController {
       );
     });
 
-    console.log(response);
-
-    return res.send("Olha no console");
+    return res.json(response);
   }
 }
 
